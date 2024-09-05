@@ -36,7 +36,8 @@ public class Usuario {
 	@OneToMany(mappedBy = "criadorDoPruu")
 	private List<Pruu> pruus;
 	
-	//@Column(nullable = false)
-	//private String email;
-	//private String senha;
+	@Column(nullable = false)
+	private String email;
+	
+	private String senha;
 }
