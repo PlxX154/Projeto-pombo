@@ -2,8 +2,14 @@ package br.sc.senac.dw.projeto_pombo.model.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,18 +21,20 @@ import lombok.Data;
 public class Pruu {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	
-	private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(name = "id_usuario")
+	private Usuario criadorDoPruu;
 	
 	
 	@Min(1)
 	@Max(300)
-	private String PruuTexto;
+	private String pruuTexto;
 	
 	
-	private int Curtidas;
+	private int contagemCurtidas;
 	
-	private LocalDateTime data;
+	private LocalDateTime dataCriacao;
 }
