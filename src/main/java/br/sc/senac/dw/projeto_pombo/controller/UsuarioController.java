@@ -11,8 +11,6 @@ import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.service.UsuarioService;
 
-
-
 @RestController
 @RequestMapping(path = "/api/usuario")
 public class UsuarioController {

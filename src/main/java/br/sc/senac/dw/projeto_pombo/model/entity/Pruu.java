@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -28,9 +29,7 @@ public class Pruu {
 	@JoinColumn(name = "id_usuario")
 	private Usuario criadorDoPruu;
 	
-	
-	@Min(1)
-	@Max(300)
+	@Size(min = 1, max = 255)
 	private String pruuTexto;
 	
 	
