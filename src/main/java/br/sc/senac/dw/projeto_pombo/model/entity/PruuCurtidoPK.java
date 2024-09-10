@@ -11,9 +11,9 @@ import lombok.Data;
 public class PruuCurtidoPK implements Serializable{
 	
 	@Column(name = "id_pruu")
-	Integer pruuid;
+	private String uuidPruu;
 	
 	@Column(name = "id_usuario")
-	Integer usuarioid;
+	private String uuidUsuario;
 
 }

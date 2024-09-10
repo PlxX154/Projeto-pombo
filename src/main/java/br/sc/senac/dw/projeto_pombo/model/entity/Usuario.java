@@ -1,15 +1,13 @@
 package br.sc.senac.dw.projeto_pombo.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -39,9 +37,11 @@ public class Usuario {
 	@OneToMany(mappedBy = "criadorDoPruu")
 	private List<Pruu> pruus;
 	
+	@OneToMany(mappedBy = "usuario")
+	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
+	
 	@Email
 	@NotBlank(message = "Email é obrigatório")
-	@Column(nullable = false)
 	private String email;
 	
 	private String senha;
