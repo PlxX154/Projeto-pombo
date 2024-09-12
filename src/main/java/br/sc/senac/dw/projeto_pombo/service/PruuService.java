@@ -1,5 +1,7 @@
 package br.sc.senac.dw.projeto_pombo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,18 @@ public class PruuService {
 		if(novoPruu.getPruuTexto() == null) {
 			throw new PomboException("Texto n informado");
 		}
+		if(novoPruu.getCriadorDoPruu() == null) {
+			throw new PomboException("Usuario n informado");
+		}
 		return pruuRepository.save(novoPruu);
+	}
+
+	public List<Pruu> pesquisarTodos() {
+		return pruuRepository.findAll();
+	}
+
+	public Pruu pesquisarPorUuid(String uuid) {
+		return pruuRepository.findById(uuid).get();
 	}
 	
 	
