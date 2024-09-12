@@ -32,7 +32,7 @@ public class UsuarioService {
 		if(usuarioAtualizado.getUuid() == null) {
 			throw new PomboException("informe um uuid valido!");
 		}
-		return usuarioRepository.save(null);
+		return usuarioRepository.save(usuarioAtualizado);
 	}
 	
 	//pior q tem q ter coisa aqui

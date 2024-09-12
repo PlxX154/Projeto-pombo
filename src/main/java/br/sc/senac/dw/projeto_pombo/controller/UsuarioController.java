@@ -37,13 +37,15 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Usuario> inserir(@RequestBody Usuario novo) throws PomboException {
-		return ResponseEntity.ok(usuarioService.inserir(novo));
+	public ResponseEntity<Usuario> inserir(@RequestBody Usuario novovo) throws PomboException {
+		return ResponseEntity.ok(usuarioService.inserir(novovo));
 	}
 	
 	@PutMapping
-	public Usuario atualizar(@RequestBody Usuario novovo) throws PomboException {
-		return usuarioService.atualizar(novovo);
+	public Usuario atualizar(@RequestBody Usuario novo) throws PomboException {
+		return usuarioService.atualizar(novo);
 	}
+	
+	
 
 }

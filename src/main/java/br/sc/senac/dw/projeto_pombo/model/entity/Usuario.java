@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,18 +32,21 @@ public class Usuario {
 	
 	@CPF
 	@NotBlank(message = "Cpf é obrigatório")
-	private Integer cpf;
-	
-	
-	@OneToMany(mappedBy = "criadorDoPruu")
-	private List<Pruu> pruus;
-	
-	@OneToMany(mappedBy = "usuario")
-	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
+	private String cpf;
 	
 	@Email
 	@NotBlank(message = "Email é obrigatório")
 	private String email;
 	
 	private String senha;
+	
+	
+	@OneToMany(mappedBy = "criadorDoPruu")
+	private List<Pruu> pruus;
+	
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
+	
+
 }

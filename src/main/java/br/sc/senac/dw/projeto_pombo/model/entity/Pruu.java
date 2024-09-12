@@ -32,7 +32,7 @@ public class Pruu {
 	@JoinColumn(name = "id_usuario")
 	private Usuario criadorDoPruu;
 	
-	@OneToMany(mappedBy = "pruu")
+	@OneToMany(mappedBy = "pruu") 
 	private List<PruuCurtido> usuarios = new ArrayList<>();
 	
 	@Size(min = 1, max = 255)
