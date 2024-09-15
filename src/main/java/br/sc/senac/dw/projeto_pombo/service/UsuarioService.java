@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
+import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
+import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
 import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.model.repository.UsuarioRepository;
 
@@ -34,6 +36,7 @@ public class UsuarioService {
 		}
 		return usuarioRepository.save(usuarioAtualizado);
 	}
+
 	
 	//pior q tem q ter coisa aqui
 }

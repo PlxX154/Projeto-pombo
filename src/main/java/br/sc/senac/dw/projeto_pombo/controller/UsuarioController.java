@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
+import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
 import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.service.UsuarioService;
 
@@ -46,6 +47,6 @@ public class UsuarioController {
 		return usuarioService.atualizar(novo);
 	}
 	
-	
+
 
 }

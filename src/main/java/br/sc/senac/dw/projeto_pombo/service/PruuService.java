@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
+import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
+import br.sc.senac.dw.projeto_pombo.model.repository.PruuCurtidoRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuRepository;
 
 @Service
@@ -32,6 +34,17 @@ public class PruuService {
 	public Pruu pesquisarPorUuid(String uuid) {
 		return pruuRepository.findById(uuid).get();
 	}
+
+	public Pruu gostar(Pruu gostando) {
+		
+		
+		
+			return pruuRepository.save(gostando);
+		}
 	
+	//public Pruu contarslaoq() {
+	//	return PruuCurtidoRepository.
+	//}
+
 	
 }
