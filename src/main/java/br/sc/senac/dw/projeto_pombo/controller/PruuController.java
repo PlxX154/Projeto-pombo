@@ -42,8 +42,8 @@ public class PruuController {
 	}
 
 	@PutMapping
-	public Pruu gostar(Pruu gostando) {
-		return pruuService.gostar(gostando);
+	public Pruu gostar(Pruu gostando, PruuCurtido gostei) {
+		return pruuService.gostar(gostando, gostei);
 	}
 	
 }

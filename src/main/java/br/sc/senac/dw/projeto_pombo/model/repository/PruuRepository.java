@@ -7,5 +7,7 @@ import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
 
 @Repository
 public interface PruuRepository extends JpaRepository<Pruu, String>{
+	
+	
 
 }

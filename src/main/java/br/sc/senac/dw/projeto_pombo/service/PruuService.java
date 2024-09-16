@@ -35,16 +35,16 @@ public class PruuService {
 		return pruuRepository.findById(uuid).get();
 	}
 
-	public Pruu gostar(Pruu gostando) {
-		
-		
-		
-			return pruuRepository.save(gostando);
+	public Pruu gostar(Pruu gostando, PruuCurtido gostei) {
+		if(gostei.isJaCurtido() == false) {
+			int likes = 1;
+			//int likes = gostando.getContagemCurtidas();
+			gostando.setContagemCurtidas(likes);
+		}else {
+			
 		}
-	
-	//public Pruu contarslaoq() {
-	//	return PruuCurtidoRepository.
-	//}
-
+		return pruuRepository.save(gostando);
+		
+		}
 	
 }

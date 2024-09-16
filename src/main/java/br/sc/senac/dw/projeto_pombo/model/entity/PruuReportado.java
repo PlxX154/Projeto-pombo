@@ -9,13 +9,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.Data;
 
-@Entity
 @Data
-public class PruuCurtido {
-	
+@Entity
+public class PruuReportado{
 	
 	@EmbeddedId
-	private PruuCurtidoPK id;	
+	private PruuReportadoPK id;
 	
 	@JsonBackReference
 	@ManyToOne
@@ -31,5 +30,6 @@ public class PruuCurtido {
 	private Pruu pruu;
 	
 
-	private boolean jaCurtido;
+	private boolean jaReportado;
+	
 }
