@@ -42,7 +42,10 @@ public class PruuService {
 			likes += 1;
 			gostando.setContagemCurtidas(likes);
 		}else {
-			
+			int likes = 0;
+			likes = gostando.getContagemCurtidas();
+			likes -= 1;
+			gostando.setContagemCurtidas(likes);
 		}
 		return pruuRepository.save(gostando);
 		
