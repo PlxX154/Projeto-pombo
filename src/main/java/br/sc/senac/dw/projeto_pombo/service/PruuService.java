@@ -37,8 +37,9 @@ public class PruuService {
 
 	public Pruu gostar(Pruu gostando, PruuCurtido gostei) {
 		if(gostei.isJaCurtido() == false) {
-			int likes = 1;
-			//int likes = gostando.getContagemCurtidas();
+			int likes = 0;
+			likes = gostando.getContagemCurtidas();
+			likes += 1;
 			gostando.setContagemCurtidas(likes);
 		}else {
 			
