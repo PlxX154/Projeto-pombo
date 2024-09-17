@@ -8,14 +8,23 @@ import org.springframework.stereotype.Service;
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
+import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuCurtidoRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuRepository;
+import br.sc.senac.dw.projeto_pombo.model.repository.UsuarioRepository;
+
 
 @Service
 public class PruuService {
 
 	@Autowired
 	private PruuRepository pruuRepository;
+	
+	@Autowired
+	private PruuCurtidoRepository pruuCurtidoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public Pruu postar(Pruu novoPruu) throws PomboException {
 		if(novoPruu.getPruuTexto() == null) {
@@ -35,21 +44,44 @@ public class PruuService {
 		return pruuRepository.findById(uuid).get();
 	}
 
-	public Pruu gostar(Pruu gostando, PruuCurtido gostei) {
-		if(gostei.isJaCurtido() == false) {
+	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) {
+		
+		Pruu mensagem = pruuRepository.findById(uuidPruu).get();
+		Usuario usuarioQueCurtiu = usuarioRepository.findById(uuidPruu).get();
+		
+		if(mensagem.getUsuariosCurtindo().contains(usuarioQueCurtiu)) {
+			//USUÁRIO JÁ CURTIU
+			
+			//Diminuir a contagem de curtidas na mensagem
 			int likes = 0;
-			likes = gostando.getContagemCurtidas();
-			likes += 1;
-			gostando.setContagemCurtidas(likes);
-			return pruuRepository.save(gostando);
-		}else {
-			int likes = 0;
-			likes = gostando.getContagemCurtidas();
+			likes = mensagem.getContagemCurtidas();
 			likes -= 1;
-			gostando.setContagemCurtidas(likes);
-			return pruuRepository.delete(gostando);
+			mensagem.setContagemCurtidas(likes);
+			
+			//Chamar pruuRepository
+			this.pruuCurtidoRepository.removerCurtidaDoPruu(usuarioQueCurtiu);
+			
+			
+			//Remover curtida da lista usuariosCurtindo
+			//Chamar pruuRepository?
 		}
 		
-		}
+		
+//		if(gostei.isJaCurtido() == false) {
+//			int likes = 0;
+//			likes = gostando.getContagemCurtidas();
+//			likes += 1;
+//			gostando.setContagemCurtidas(likes);
+//			pruuRepository.save(gostando);
+//		}else {
+//			int likes = 0;
+//			likes = gostando.getContagemCurtidas();
+//			likes -= 1;
+//			gostando.setContagemCurtidas(likes);
+//			pruuRepository.delete(gostando);
+//		}
+		
+		return mensagem;
+	}
 	
 }

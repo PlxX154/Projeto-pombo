@@ -24,7 +24,7 @@ public class PruuController {
 	private PruuService pruuService;
 	
 	@PostMapping
-	public Pruu postar(@RequestBody Pruu novoPruu)throws PomboException {
+	public Pruu postar(@RequestBody Pruu novoPruu) throws PomboException {
 		return pruuService.postar(novoPruu);
 	}
 	
@@ -42,8 +42,8 @@ public class PruuController {
 	}
 
 	@PutMapping
-	public Pruu gostar(Pruu gostando, PruuCurtido gostei) {
-		return pruuService.gostar(gostando, gostei);
+	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) {
+		return pruuService.gostar(uuidUsuarioQueCurtiu, uuidPruu);
 	}
 	
 }

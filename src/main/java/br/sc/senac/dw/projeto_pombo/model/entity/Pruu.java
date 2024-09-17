@@ -38,7 +38,6 @@ public class Pruu {
 	@CreationTimestamp
 	private LocalDateTime dataCriacao;
 	
-	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario criadorDoPruu;

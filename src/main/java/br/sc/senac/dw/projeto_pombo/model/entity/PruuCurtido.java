@@ -13,11 +13,9 @@ import lombok.Data;
 @Data
 public class PruuCurtido {
 	
-	
 	@EmbeddedId
 	private PruuCurtidoPK id;	
 	
-	@JsonBackReference
 	@ManyToOne
 	@MapsId("uuidUsuario")
 	@JoinColumn(name = "uuid_usuario")
@@ -30,6 +28,4 @@ public class PruuCurtido {
 	@JoinColumn(name = "uuid_pruu")
 	private Pruu pruu;
 	
-
-	private boolean jaCurtido;
 }
