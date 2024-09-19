@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
+import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtidoPK;
 import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuCurtidoRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuRepository;
@@ -47,41 +48,45 @@ public class PruuService {
 	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) {
 		
 		Pruu mensagem = pruuRepository.findById(uuidPruu).get();
-		Usuario usuarioQueCurtiu = usuarioRepository.findById(uuidPruu).get();
+		Usuario usuarioQueCurtiu = usuarioRepository.findById(uuidUsuarioQueCurtiu).get();
 		
-		if(mensagem.getUsuariosCurtindo().contains(usuarioQueCurtiu)) {
+		PruuCurtido curtida = this.pruuCurtidoRepository.findByCurtida(uuidPruu, uuidUsuarioQueCurtiu);
+		
+		if(curtida == null) {
+			//CRIAR NOVA CURTIDA
+			int likes = 0;
+			likes = mensagem.getContagemCurtidas();
+			likes += 1;
+			mensagem.setContagemCurtidas(likes);
+			
+			PruuCurtido novoLike = new PruuCurtido();
+			PruuCurtidoPK novoId = new PruuCurtidoPK();
+			novoId.setUuidPruu(uuidPruu);
+			novoId.setUuidUsuario(uuidUsuarioQueCurtiu);
+			
+			novoLike.setId(novoId);
+			novoLike.setUsuario(usuarioQueCurtiu);
+			novoLike.setPruu(mensagem);
+			
+			this.pruuCurtidoRepository.save(novoLike); //INSERT de nova curtida (em PruuCurtido)
+			this.pruuRepository.save(mensagem);        //UPDATE da mensagem (Pruu)
+		}else {
 			//USUÁRIO JÁ CURTIU
 			
 			//Diminuir a contagem de curtidas na mensagem
+			//Chamar pruuRepository
 			int likes = 0;
 			likes = mensagem.getContagemCurtidas();
 			likes -= 1;
 			mensagem.setContagemCurtidas(likes);
 			
-			//Chamar pruuRepository
-			this.pruuCurtidoRepository.removerCurtidaDoPruu(usuarioQueCurtiu);
-			
-			
 			//Remover curtida da lista usuariosCurtindo
 			//Chamar pruuRepository?
+
+			this.pruuCurtidoRepository.delete(curtida);
+			this.pruuRepository.save(mensagem);        //UPDATE da mensagem (Pruu)
 		}
-		
-		
-//		if(gostei.isJaCurtido() == false) {
-//			int likes = 0;
-//			likes = gostando.getContagemCurtidas();
-//			likes += 1;
-//			gostando.setContagemCurtidas(likes);
-//			pruuRepository.save(gostando);
-//		}else {
-//			int likes = 0;
-//			likes = gostando.getContagemCurtidas();
-//			likes -= 1;
-//			gostando.setContagemCurtidas(likes);
-//			pruuRepository.delete(gostando);
-//		}
 		
 		return mensagem;
 	}
-	
 }

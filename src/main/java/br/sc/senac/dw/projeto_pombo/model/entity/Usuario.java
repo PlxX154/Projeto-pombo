@@ -41,12 +41,12 @@ public class Usuario {
 	private String senha;
 	
 	
-	@OneToMany(mappedBy = "criadorDoPruu")
-	private List<Pruu> pruus;
-	
-	
-	@OneToMany(mappedBy = "usuario")
-	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
+//	@OneToMany(mappedBy = "criadorDoPruu")
+//	private List<Pruu> pruus;
+//	
+//	
+//	@OneToMany(mappedBy = "usuario")
+//	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
 	
 
 }

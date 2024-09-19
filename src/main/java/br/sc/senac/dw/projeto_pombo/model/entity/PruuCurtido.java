@@ -16,6 +16,7 @@ public class PruuCurtido {
 	@EmbeddedId
 	private PruuCurtidoPK id;	
 	
+	
 	@ManyToOne
 	@MapsId("uuidUsuario")
 	@JoinColumn(name = "uuid_usuario")

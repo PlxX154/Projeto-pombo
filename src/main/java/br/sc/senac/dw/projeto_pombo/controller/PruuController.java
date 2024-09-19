@@ -41,7 +41,7 @@ public class PruuController {
 		return pruuService.pesquisarPorUuid(uuid);
 	}
 
-	@PutMapping
+	@PutMapping(path = "/curtir")
 	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) {
 		return pruuService.gostar(uuidUsuarioQueCurtiu, uuidPruu);
 	}

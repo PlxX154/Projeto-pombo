@@ -43,5 +43,5 @@ public class Pruu {
 	private Usuario criadorDoPruu;
 	
 	@OneToMany(mappedBy = "pruu") 
-	private List<PruuCurtido> usuariosCurtindo = new ArrayList<>();
+	private List<PruuCurtido> curtidas = new ArrayList<>();
 }
