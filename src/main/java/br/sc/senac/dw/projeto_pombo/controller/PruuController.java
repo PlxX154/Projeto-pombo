@@ -15,6 +15,7 @@ import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
 import br.sc.senac.dw.projeto_pombo.service.PruuService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping(path = "/api/pruu")
@@ -35,6 +36,8 @@ public class PruuController {
 		return tudo;
 	}
 	
+	@Operation(summary = "Pesquisar pruu por UUID", 
+			   description = "Busca um pruu específico pelo seu UUID.")
 	@GetMapping(path = "/{uuid}")
 	private Pruu pesquisarPorUuid(@PathVariable String uuid) {
 		
