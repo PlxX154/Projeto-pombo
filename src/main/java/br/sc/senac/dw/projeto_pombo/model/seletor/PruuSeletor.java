@@ -39,8 +39,6 @@ public class PruuSeletor extends BaseSeletor implements Specification<Pruu>{
 		List<Predicate> predicates = new ArrayList<>();
 		
         if(this.getNomeUsuario() != null && this.getNomeUsuario().trim().length() > 0) {
-         	// WHERE/AND COLUNA OPERADOR VALOR
-         	// WHERE      nome   like    '%Popó%'
             predicates.add(cb.like(root.get("criadorDoPruu").get("nome"), "%" + this.getNomeUsuario() + "%"));
          }
         
