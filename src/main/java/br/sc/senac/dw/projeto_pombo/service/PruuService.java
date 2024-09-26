@@ -3,6 +3,7 @@ package br.sc.senac.dw.projeto_pombo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
@@ -13,6 +14,7 @@ import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuCurtidoRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.UsuarioRepository;
+import br.sc.senac.dw.projeto_pombo.model.seletor.PruuSeletor;
 
 
 @Service
@@ -89,4 +91,25 @@ public class PruuService {
 		
 		return mensagem;
 	}
+
+	public List<Pruu> pesquisarComSeletor(PruuSeletor seletor) {
+		if(seletor.temPaginacao()) {
+			int pageNumber = seletor.getPagina();
+			int pageSize = seletor.getLimite();
+			
+
+			//Ler com atenção a documentação: 
+			// @param pageNumber zero-based page number, must not be negative.
+			// @param pageSize the size of the page to be returned, must be greater than 0.
+			PageRequest pagina = PageRequest.of(pageNumber - 1, pageSize);
+			return pruuRepository.findAll(seletor, pagina).toList();
+		}
+		
+		return pruuRepository.findAll(seletor);
+	}
+	
+	public int contarPaginas(PruuSeletor seletor) {
+		return (int) pruuRepository.count(seletor);
+	}
+	
 }
