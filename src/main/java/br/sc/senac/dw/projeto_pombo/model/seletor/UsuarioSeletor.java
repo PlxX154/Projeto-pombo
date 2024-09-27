@@ -1,6 +1,5 @@
 package br.sc.senac.dw.projeto_pombo.model.seletor;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

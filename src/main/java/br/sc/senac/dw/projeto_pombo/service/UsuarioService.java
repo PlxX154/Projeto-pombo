@@ -21,16 +21,19 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	public Usuario inserir(Usuario novo) {
+	public Usuario inserir(Usuario novo) throws PomboException {
 		validarCpfUsuario(novo);
 		return usuarioRepository.save(novo);
 	}
 	
-	private void validarCpfUsuario(Usuario novo) {
+	private void validarCpfUsuario(Usuario novo) throws PomboException {
 		
-		String cpfNovoUsuario = novo.getCpf();
+		String cpfNovo = novo.getCpf();
+		Usuario cpfNovoUsuario = usuarioRepository.findByCpf(cpfNovo);
 		
-		if(novo.getCpf() == usuarioRepository.findByCpf(cpfNovoUsuario))
+		if(cpfNovoUsuario != null) {
+			throw new PomboException("cpf ja em uso");
+		}
 		
 	}
 
