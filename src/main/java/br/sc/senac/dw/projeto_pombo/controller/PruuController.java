@@ -59,7 +59,7 @@ public class PruuController {
 	@Operation(summary = "Curtir um Pruu", 
 			   description = "Curti um Pruu com uuid usuario e uuid pruu")
 	@PutMapping(path = "/curtir")
-	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) {
+	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) throws PomboException {
 		return pruuService.gostar(uuidUsuarioQueCurtiu, uuidPruu);
 	}
 	

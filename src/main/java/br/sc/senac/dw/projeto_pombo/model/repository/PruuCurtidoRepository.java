@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtidoPK;
 
-
-
 @Repository
 public interface PruuCurtidoRepository extends JpaRepository<PruuCurtido, PruuCurtidoPK>, JpaSpecificationExecutor<PruuCurtido> {
 

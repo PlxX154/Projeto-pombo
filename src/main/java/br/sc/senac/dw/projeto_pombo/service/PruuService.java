@@ -47,10 +47,18 @@ public class PruuService {
 		return pruuRepository.findById(uuid).get();
 	}
 
-	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) {
+	public Pruu gostar(String uuidUsuarioQueCurtiu, String uuidPruu) throws PomboException {
 		
-		Pruu mensagem = pruuRepository.findById(uuidPruu).get();
+		if(!pruuRepository.findById(uuidPruu).isPresent()) {
+			throw new PomboException("Mensagem n informado ou invalido");
+		}
+		
+		if(!pruuRepository.findById(uuidUsuarioQueCurtiu).isPresent()) {
+			throw new PomboException("Usuario n informado ou invalido");
+		}
+		Pruu mensagem = pruuRepository.findById(uuidPruu).get(); 
 		Usuario usuarioQueCurtiu = usuarioRepository.findById(uuidUsuarioQueCurtiu).get();
+		
 		
 		PruuCurtido curtida = this.pruuCurtidoRepository.findByCurtida(uuidPruu, uuidUsuarioQueCurtiu);
 		
@@ -110,6 +118,10 @@ public class PruuService {
 	
 	public int contarPaginas(PruuSeletor seletor) {
 		return (int) pruuRepository.count(seletor);
+	}
+
+	public List<PruuCurtido> pesquisarTodosOsLikes() {
+		return pruuCurtidoRepository.findAll();
 	}
 	
 }

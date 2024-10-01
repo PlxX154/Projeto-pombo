@@ -40,13 +40,14 @@ public class Usuario {
 	
 	private String senha;
 	
+    @JsonBackReference(value ="criadorDoPruu")
+	@OneToMany(mappedBy = "criadorDoPruu")
+	private List<Pruu> pruusPostados;
 	
-//	@OneToMany(mappedBy = "criadorDoPruu")
-//	private List<Pruu> pruus;
-//	
-//	
-//	@OneToMany(mappedBy = "usuario")
-//	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
+	
+    @JsonBackReference(value ="usuarioCurtindo")
+	@OneToMany(mappedBy = "usuario")
+	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
 	
 
 }

@@ -31,7 +31,8 @@ public class Pruu {
 	@Size(min = 1, max = 255)
 	@NotBlank(message = "Texto é obrigatório")
 	private String pruuTexto; 
-
+	
+	
 	
 	private int contagemCurtidas;
 	

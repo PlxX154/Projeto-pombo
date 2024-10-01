@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,6 +61,14 @@ public class UsuarioController {
 	@PostMapping("/filtro")
 	public List<Usuario> pesquisarComSeletor(@RequestBody UsuarioSeletor seletor){
 		return usuarioService.pesquisarComSeletor(seletor);
+	}
+	
+	@Operation(summary = "Deletar Usuarios por uuid", 
+			   description = "Deleta usuario dado o seu uuid, desde q o usuario n tenha pruus postados")
+	@DeleteMapping("/{uuid}")
+	public ResponseEntity<Void> excluir(@PathVariable String uuid) throws PomboException {
+		usuarioService.excluir(uuid);
+		return ResponseEntity.noContent().build();
 	}
 	
 }

@@ -28,5 +28,5 @@ public class PruuCurtido {
 	@MapsId("uuidPruu")
 	@JoinColumn(name = "uuid_pruu")
 	private Pruu pruu;
-	
+
 }

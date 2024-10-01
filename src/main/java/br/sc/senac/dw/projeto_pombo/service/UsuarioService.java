@@ -11,6 +11,7 @@ import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
 import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
+import br.sc.senac.dw.projeto_pombo.model.repository.PruuRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.UsuarioRepository;
 import br.sc.senac.dw.projeto_pombo.model.seletor.PruuSeletor;
 import br.sc.senac.dw.projeto_pombo.model.seletor.UsuarioSeletor;
@@ -20,6 +21,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PruuRepository pruuRepository;
 	
 	public Usuario inserir(Usuario novo) throws PomboException {
 		validarCpfUsuario(novo);
@@ -71,5 +75,17 @@ public class UsuarioService {
 	public int contarPaginas(UsuarioSeletor seletor) {
 	    return (int) usuarioRepository.count(seletor);
     }
+
+	public void excluir(String uuid) throws PomboException{
+		
+		
+		long totalDePruusCriados = pruuRepository.countByIdUsuario(uuid);
+		
+		if(totalDePruusCriados > 0 ) {
+			throw new PomboException("Usuario #" + uuid + "  já possui Pruus postados, logo não pode ser excluído.");
+		}
+		
+		usuarioRepository.deleteById(uuid);
+	}
 	
 }
