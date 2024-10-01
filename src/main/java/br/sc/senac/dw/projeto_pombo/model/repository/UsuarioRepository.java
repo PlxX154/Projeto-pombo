@@ -11,7 +11,7 @@ import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, String>, JpaSpecificationExecutor<Usuario>{
 	
-	@Query("SELECT * FROM usuario WHERE cpf = :cpfUsuario")
-	Usuario findByCpf(Usuario novo);
+	@Query("SELECT us FROM Usuario us WHERE us.cpf = :cpfNovo")
+	Usuario findByCpf(String cpfNovo);
 	
 }
