@@ -63,4 +63,10 @@ public class PruuController {
 		return pruuService.gostar(uuidUsuarioQueCurtiu, uuidPruu);
 	}
 	
+	@Operation(summary = "Reportar um Pruu", 
+			   description = "Reporta um Pruu com uuid usuario e uuid pruu")
+	@PutMapping(path = "/Reportar")
+	public Pruu reportar(String uuidUsuarioRoportando, String uuidPruu, String MotivoReport) throws PomboException {
+		return pruuService.reportar(uuidUsuarioRoportando, uuidPruu, MotivoReport);
+	}
 }

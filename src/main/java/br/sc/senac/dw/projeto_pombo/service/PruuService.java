@@ -10,8 +10,11 @@ import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtido;
 import br.sc.senac.dw.projeto_pombo.model.entity.PruuCurtidoPK;
+import br.sc.senac.dw.projeto_pombo.model.entity.PruuReportado;
+import br.sc.senac.dw.projeto_pombo.model.entity.PruuReportadoPK;
 import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuCurtidoRepository;
+import br.sc.senac.dw.projeto_pombo.model.repository.PruuReportadoRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.PruuRepository;
 import br.sc.senac.dw.projeto_pombo.model.repository.UsuarioRepository;
 import br.sc.senac.dw.projeto_pombo.model.seletor.PruuSeletor;
@@ -28,6 +31,9 @@ public class PruuService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PruuReportadoRepository pruuReportadoRepository;
 
 	public Pruu postar(Pruu novoPruu) throws PomboException {
 		if(novoPruu.getPruuTexto() == null) {
@@ -122,6 +128,33 @@ public class PruuService {
 
 	public List<PruuCurtido> pesquisarTodosOsLikes() {
 		return pruuCurtidoRepository.findAll();
+	}
+
+	public Pruu reportar(String uuidUsuarioRoportando, String uuidPruu, String MotivoReport) throws PomboException {
+		
+		Pruu pruu = pruuRepository.findById(uuidPruu).get(); 
+		Usuario usuarioQueReportou = usuarioRepository.findById(uuidUsuarioRoportando).get();
+		
+		PruuReportado Reporte = this.pruuReportadoRepository.findByReporte(uuidPruu, uuidUsuarioRoportando);
+		
+		if(Reporte == null) {
+			
+			PruuReportado novoReporte = new PruuReportado();
+			PruuReportadoPK novoId = new PruuReportadoPK();
+			novoId.setUuidPruu(uuidPruu);
+			novoId.setUuidUsuario(uuidUsuarioRoportando);
+			
+			novoReporte.setId(novoId);
+			novoReporte.setUsuario(usuarioQueReportou);
+			novoReporte.setPruu(pruu);
+			
+			this.pruuReportadoRepository.save(novoReporte); //INSERT do novo reporte (em PruuReportado)
+			this.pruuRepository.save(pruu);
+		} else {
+			throw new PomboException("Pruu ja reportado");
+		}
+		
+		return pruu;
 	}
 	
 }

@@ -32,8 +32,6 @@ public class Pruu {
 	@NotBlank(message = "Texto é obrigatório")
 	private String pruuTexto; 
 	
-	
-	
 	private int contagemCurtidas;
 	
 	@CreationTimestamp
@@ -45,4 +43,7 @@ public class Pruu {
 	
 	@OneToMany(mappedBy = "pruu") 
 	private List<PruuCurtido> curtidas = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "pruu") 
+	private List<PruuReportado> reportes = new ArrayList<>();
 }
