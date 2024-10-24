@@ -31,6 +31,5 @@ public class PruuReportado{
 	
 
 	private String motivoReport;
-	private boolean jaReportado;
 	
 }

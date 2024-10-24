@@ -144,6 +144,7 @@ public class PruuService {
 			novoId.setUuidPruu(uuidPruu);
 			novoId.setUuidUsuario(uuidUsuarioRoportando);
 			
+			novoReporte.setMotivoReport(MotivoReport);
 			novoReporte.setId(novoId);
 			novoReporte.setUsuario(usuarioQueReportou);
 			novoReporte.setPruu(pruu);

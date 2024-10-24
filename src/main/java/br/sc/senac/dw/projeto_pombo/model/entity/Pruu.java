@@ -28,7 +28,7 @@ public class Pruu {
 	@UuidGenerator 
 	private String uuid; 
 	
-	@Size(min = 1, max = 255)
+	@Size(min = 1, max = 300)
 	@NotBlank(message = "Texto é obrigatório")
 	private String pruuTexto; 
 	
