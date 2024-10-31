@@ -47,6 +47,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- Spring Security - autenticação  -->
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+	      <groupId>org.springframework.security</groupId>
+	      <artifactId>spring-security-test</artifactId>
+	      <scope>test</scope>
+	    </dependency>
+	    
+		<!-- Gerador de JWT -->	    
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
+		</dependency>
+	
+			<!-- 
+				Descomente para usar uma base H2 (em memória) para os testes
+				Quando descomentar, também troque as anotações @SpringBootTest por @DataJpaTest
+				em todos as classes *RepositoryTest
+			-->
+<!--		<dependency>-->
+<!--		    <groupId>com.h2database</groupId>-->
+<!--		    <artifactId>h2</artifactId>-->
+<!--		    <scope>test</scope>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

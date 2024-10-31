@@ -1,5 +1,7 @@
 package br.sc.senac.dw.projeto_pombo.model.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +15,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String>, JpaSp
 	
 	@Query("SELECT us FROM Usuario us WHERE us.cpf = :cpfNovo")
 	Usuario findByCpf(String cpfNovo);
+
+	//@Query("SELECT us FROM Usuario us WHERE us.email = :email")
+	Optional<Usuario> findByEmail(String email);
 	
 }
