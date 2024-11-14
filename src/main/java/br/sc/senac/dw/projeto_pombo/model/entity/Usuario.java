@@ -58,7 +58,8 @@ public class Usuario implements UserDetails{
 	@OneToMany(mappedBy = "usuario")
 	private List<PruuCurtido> pruusCurtidos = new ArrayList<>();
 	
-    
+	@Column(columnDefinition = "LONGTEXT")
+	private String imagemEmBase64;
     
     
     @Enumerated(EnumType.STRING)

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
@@ -28,6 +29,9 @@ public class UsuarioService implements UserDetailsService{
 	@Autowired
 	private PruuRepository pruuRepository;
 	
+	@Autowired
+	private ImagemService imagemService;
+	
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return usuarioRepository.findByEmail(username)
@@ -36,6 +40,18 @@ public class UsuarioService implements UserDetailsService{
                  );
     }
 	
+    public void salvarImagemUsuario(MultipartFile imagem, String idUsuario) throws PomboException{
+    	Usuario usuarioComNovaImagem = usuarioRepository
+    			.findById(idUsuario)
+    			.orElseThrow(()-> new PomboException("Usuario não encontrado"));
+    	
+    	String imagemBase64 = imagemService.processarImagem(imagem);
+    	
+    	usuarioComNovaImagem.setImagemEmBase64(imagemBase64);
+    	
+    	usuarioRepository.save(usuarioComNovaImagem);
+    }
+    
 	public Usuario inserir(Usuario novo) throws PomboException {
 		validarCpfUsuario(novo);
 		return usuarioRepository.save(novo);
