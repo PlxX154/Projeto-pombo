@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.sc.senac.dw.projeto_pombo.auth.AuthenticationService;
+import br.sc.senac.dw.projeto_pombo.enums.PerfilAcesso;
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Usuario;
 import br.sc.senac.dw.projeto_pombo.model.seletor.UsuarioSeletor;
 import br.sc.senac.dw.projeto_pombo.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping(path = "/api/usuario")
@@ -25,6 +31,41 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private AuthenticationService authService;
+	
+	@Operation(
+			summary = "Upload de Imagem para Carta",
+			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+				description = "Arquivo de imagem a ser enviado",
+				required = true,
+				content = @Content(
+					mediaType = "multipart/form-data",
+					schema = @Schema(type = "string", format = "binary")
+				)
+			),
+			description = "Realiza o upload de uma imagem associada a uma carta específica."
+		)
+		@PostMapping("/{id}/upload")
+	public void fazerUploadUsuario(@RequestParam("imagem")MultipartFile imagem, @PathVariable String uuid) throws PomboException{
+		
+		if(imagem == null) {
+			throw new PomboException("Arquivo inválido");
+		}
+		
+		Usuario usuarioAutenticado = authService.getUsuarioAutenticado();
+		
+		if(usuarioAutenticado == null) {
+			throw new PomboException("usuario não encontrado");
+		}
+		
+		if(usuarioAutenticado.getPerfil() == PerfilAcesso.USUARIO) {
+			throw new PomboException("Usuário sem permissão de acesso");
+		}
+		
+		usuarioService.salvarImagemUsuario(imagem, uuid);
+	}
 	
 	@Operation(summary = "Pesquisar Todos os usuarios", 
 			   description = "Retorna uma lista de todos os Usuarios cadastrados.")
