@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
 import br.sc.senac.dw.projeto_pombo.model.entity.Pruu;
@@ -34,6 +35,22 @@ public class PruuService {
 	
 	@Autowired
 	private PruuReportadoRepository pruuReportadoRepository;
+	
+	@Autowired
+	private ImagemService imagemService;
+	
+	
+    public void salvarImagemPruu(MultipartFile imagem, String idPruu) throws PomboException{
+    	Pruu pruuComNovaImagem = pruuRepository
+    			.findById(idPruu)
+    			.orElseThrow(()-> new PomboException("Pruu não encontrado"));
+    	
+    	String imagemBase64 = imagemService.processarImagem(imagem);
+    	
+    	pruuComNovaImagem.setImagemEmBase64(imagemBase64);
+    	
+    	pruuRepository.save(pruuComNovaImagem);
+    }
 
 	public Pruu postar(Pruu novoPruu) throws PomboException {
 		if(novoPruu.getPruuTexto() == null) {

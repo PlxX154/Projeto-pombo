@@ -36,7 +36,7 @@ public class UsuarioController {
 	private AuthenticationService authService;
 	
 	@Operation(
-			summary = "Upload de Imagem para Carta",
+			summary = "Upload de Imagem para Usuário",
 			requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
 				description = "Arquivo de imagem a ser enviado",
 				required = true,
@@ -45,7 +45,7 @@ public class UsuarioController {
 					schema = @Schema(type = "string", format = "binary")
 				)
 			),
-			description = "Realiza o upload de uma imagem associada a uma carta específica."
+			description = "Realiza o upload de uma imagem associada a um Usuário específico."
 		)
 		@PostMapping("/{id}/upload")
 	public void fazerUploadUsuario(@RequestParam("imagem")MultipartFile imagem, @PathVariable String uuid) throws PomboException{
@@ -57,7 +57,7 @@ public class UsuarioController {
 		Usuario usuarioAutenticado = authService.getUsuarioAutenticado();
 		
 		if(usuarioAutenticado == null) {
-			throw new PomboException("usuario não encontrado");
+			throw new PomboException("Usuário não encontrado");
 		}
 		
 		if(usuarioAutenticado.getPerfil() == PerfilAcesso.USUARIO) {
