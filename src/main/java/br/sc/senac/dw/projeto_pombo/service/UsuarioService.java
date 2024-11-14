@@ -5,6 +5,9 @@ import java.util.List;
 import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.sc.senac.dw.projeto_pombo.exception.PomboException;
@@ -17,13 +20,21 @@ import br.sc.senac.dw.projeto_pombo.model.seletor.PruuSeletor;
 import br.sc.senac.dw.projeto_pombo.model.seletor.UsuarioSeletor;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService{
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
 	private PruuRepository pruuRepository;
+	
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return usuarioRepository.findByEmail(username)
+                .orElseThrow(
+                	() -> new UsernameNotFoundException("Usuário não encontrado" + username)
+                 );
+    }
 	
 	public Usuario inserir(Usuario novo) throws PomboException {
 		validarCpfUsuario(novo);

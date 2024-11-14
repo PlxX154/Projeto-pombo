@@ -8,10 +8,12 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import br.sc.senac.dw.projeto_pombo.enums.PerfilAcesso;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,7 +28,7 @@ import lombok.Data;
 @Entity
 @Table
 @Data
-public class Usuario {
+public class Usuario implements UserDetails{
 
 	@Id 
 	@UuidGenerator 
@@ -44,6 +46,7 @@ public class Usuario {
 	@NotBlank(message = "Email é obrigatório")
 	private String email;
 	
+	@Column(length = 4000)
 	private String senha;
 	
     @JsonBackReference(value ="criadorDoPruu")
