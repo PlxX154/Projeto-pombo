@@ -9,6 +9,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -33,6 +34,11 @@ public class Pruu {
 	private String pruuTexto; 
 	
 	private int contagemCurtidas;
+	
+	@Column(columnDefinition = "LONGTEXT")
+	private String imagemEmBase64;
+	
+	//private boolean ativado;
 	
 	@CreationTimestamp
 	private LocalDateTime dataCriacao;
